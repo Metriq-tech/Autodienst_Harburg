@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html class="light" lang="de">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Autodienst Harburg - Ihre KFZ Werkstatt im Herzen Harburgs</title>
+
+    <!-- Meta Tags for SEO -->
+    <meta name="description"
+        content="Autodienst Harburg - Seit 2007 Ihr kompetenter Partner für KFZ-Service, Reparaturen, Diagnosen und Gutachten in Hamburg-Harburg.">
+    <meta name="keywords"
+        content="KFZ Werkstatt Harburg, Autoreparatur Hamburg, Autodienst, Reifen Harburg, Inspektionsservice, Autoglas Harburg, Gutachter Harburg">
+
+    <!-- Styles & Fonts -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Manrope:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet">
+
+    <!-- React Dependencies -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/history@5/umd/history.development.js"></script>
+    <script src="https://unpkg.com/react-router@6.3.0/umd/react-router.development.js"></script>
+    <script src="https://unpkg.com/react-router-dom@6.3.0/umd/react-router-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+    <style>
+        :root {
+            --primary: #c21a22;
+            /* Premium Racing Red */
+            --accent: #1e293b;
+            --surface: #ffffff;
+            --bg: #f8fafc;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            background-color: var(--bg);
+            color: #1e293b;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .material-symbols-outlined.fill {
+            font-variation-settings: 'FILL' 1;
+        }
+
+        /* Premium Glassmorphism */
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .hero-gradient-text {
+            background: linear-gradient(135deg, #ffffff 0%, #ff8a8a 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .service-card {
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .service-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 25px 50px -12px rgba(194, 26, 34, 0.15);
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        .float {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .mask-fade-x {
+            mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+
+<body class="selection:bg-red-100 selection:text-red-600">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect, useMemo } = React;
+        const { createRoot } = ReactDOM;
+        const { HashRouter, Routes, Route, Link, useNavigate, useLocation } = ReactRouterDOM;
+
+        const CONFIG = {
+            company: {
+                name: "Autodienst Harburg",
+                shortName: "Autodienst",
+                tagline: "Ihre KFZ Werkstatt im Herzen Harburgs",
+                logo: "Autodienst Harburg", // Text fallback
+                primaryColor: "#c21a22",
+            },
+            contact: {
+                phone: "040 696 47 046",
+                fax: "040 696 47 068",
+                email: "info@autodienst-harburg.de",
+                address: "Marmstorfer Weg 29, 21077 Hamburg",
+                googleMapsQuery: "Marmstorfer Weg 29, 21077 Hamburg",
+                openingHours: [
+                    { day: "Mo - Do", time: "08:00 - 17:00 Uhr" },
+                    { day: "Freitag", time: "08:00 - 15:00 Uhr" },
+                    { day: "Samstag", time: "Nach Vereinbarung" }
+                ]
+            },
+            hero: {
+                title: "Qualität & Vertrauen",
+                highlight: "FÜR IHR FAHRZEUG",
+                description: "Seit 2007 Ihr KFZ-Meisterbetrieb in Harburg. Professioneller Service, modernste Technik und transparente Beratung.",
+                image: "./Reale_Bilder/IMG_5356.jpg",
+                image2: "./Reale_Bilder/IMG_5355.jpg",
+                rating: "4.8"
+            },
+            services: [
+                {
+                    id: "inspektion",
+                    title: "Inspektion",
+                    icon: "build",
+                    desc: "Wartung nach Herstellervorgaben für alle Marken inkl. Erhalt der Garantie.",
+                    image: "./Mock-Bilder/inspektion.avif"
+                },
+                {
+                    id: "diagnose",
+                    title: "Diagnose",
+                    icon: "memory",
+                    desc: "Modernste Computerdiagnose und Steuergeräte-Updates für alle Fabrikate.",
+                    image: "./Mock-Bilder/diagnose.avif"
+                },
+                {
+                    id: "autoglas",
+                    title: "AGS Autoglas",
+                    icon: "visibility",
+                    desc: "Spezialist für Steinschlag-Reparatur und Scheibenwechsel. Schnelle Abwicklung und direkte Abrechnung mit allen Versicherungen.",
+                    image: "./Mock-Bilder/steinschlag.jpg"
+                },
+                {
+                    id: "reifen",
+                    title: "Reifenservice",
+                    icon: "tire_repair",
+                    desc: "Professioneller Reifenwechsel, Auswuchten und Einlagerung.",
+                    image: "./Mock-Bilder/reifenservice.avif"
+                },
+                {
+                    id: "gutachten",
+                    title: "Gutachten",
+                    icon: "description",
+                    desc: "Unfall- und Wertgutachten durch zertifizierte KFZ-Sachverständige.",
+                    image: "./Mock-Bilder/transparenz.avif"
+                },
+                {
+                    id: "tuev",
+                    title: "HU / AU",
+                    icon: "verified",
+                    desc: "Hauptuntersuchungen jede Woche Dienstags direkt bei uns im Haus.",
+                    image: "./Mock-Bilder/tuev.png"
+                }
+            ],
+            team: [
+                { name: "H.-J. Corsten-Weseloh", role: "Inhaber & Gutachter", quote: "Der Kapitän, der das Schiff auf Kurs hält." },
+                { name: "Florian Stengel", role: "KFZ Mechaniker", quote: "Der Problemlöser für jedes ölige Problem." },
+                { name: "Marco Engelke", role: "Mechaniker & Blechschlosser", quote: "Bringt Karosserien wieder perfekt in Form." }
+            ]
+        };
+
+        const StyleInjections = () => (
+            <style>
+                {`
+                    :root { --primary-color: ${CONFIG.company.primaryColor}; }
+                    .text-primary { color: ${CONFIG.company.primaryColor}; }
+                    .bg-primary { background-color: ${CONFIG.company.primaryColor}; }
+                    .border-primary { border-color: ${CONFIG.company.primaryColor}; }
+                `}
+            </style>
+        );
+
+        const Navbar = () => {
+            const [scrolled, setScrolled] = useState(false);
+            const [menuOpen, setMenuOpen] = useState(false);
+
+            useEffect(() => {
+                const handleScroll = () => setScrolled(window.scrollY > 20);
+                window.addEventListener('scroll', handleScroll);
+                return () => window.removeEventListener('scroll', handleScroll);
+            }, []);
+
+            return (
+                <header className={`fixed top-0 z-50 w-full transition-all duration-500 ${scrolled ? 'bg-white/80 backdrop-blur-xl shadow-lg py-4' : 'bg-transparent py-8'}`}>
+                    <div className="mx-auto max-w-7xl px-6 lg:px-10 flex items-center justify-between">
+                        <Link to="/" className="flex items-center gap-2 group">
+                            <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center text-white font-black text-xl group-hover:rotate-12 transition-transform">H</div>
+                            <span className={`text-2xl font-black tracking-tighter uppercase italic ${scrolled ? 'text-slate-900' : 'text-white md:text-white text-slate-900'}`}>
+                                {CONFIG.company.name.split(' ')[0]} <span className="text-primary">{CONFIG.company.name.split(' ').slice(1).join(' ')}</span>
+                            </span>
+                        </Link>
+
+                        <nav className="hidden md:flex items-center gap-10">
+                            <Link to="/" className={`text-sm font-bold uppercase tracking-widest hover:text-primary transition-colors ${scrolled ? 'text-slate-600' : 'text-white/80'}`}>Startseite</Link>
+                            <a href="#leistungen" className={`text-sm font-bold uppercase tracking-widest hover:text-primary transition-colors ${scrolled ? 'text-slate-600' : 'text-white/80'}`}>Leistungen</a>
+                            <a href="#gutachten" className={`text-sm font-bold uppercase tracking-widest hover:text-primary transition-colors ${scrolled ? 'text-slate-600' : 'text-white/80'}`}>Gutachten</a>
+                            <a href="#team" className={`text-sm font-bold uppercase tracking-widest hover:text-primary transition-colors ${scrolled ? 'text-slate-600' : 'text-white/80'}`}>Team</a>
+                            <Link to="/kontakt" className="bg-primary text-white text-xs font-black px-6 py-4 rounded-full shadow-lg shadow-red-500/30 hover:scale-105 active:scale-95 transition-all uppercase tracking-widest">
+                                Termin buchen
+                            </Link>
+                        </nav>
+
+                        <button className={`md:hidden p-2 rounded-xl ${scrolled ? 'bg-slate-100 text-slate-900' : 'bg-white/10 text-white'}`} onClick={() => setMenuOpen(!menuOpen)}>
+                            <span className="material-symbols-outlined">{menuOpen ? 'close' : 'menu'}</span>
+                        </button>
+                    </div>
+                    {/* Mobile Menu */}
+                    {menuOpen && (
+                        <div className="absolute top-full left-0 w-full bg-white shadow-2xl p-8 flex flex-col gap-6 animate-fade-in border-t border-slate-100 md:hidden">
+                            <Link to="/" className="text-lg font-bold text-slate-900" onClick={() => setMenuOpen(false)}>Startseite</Link>
+                            <a href="#leistungen" className="text-lg font-bold text-slate-900" onClick={() => setMenuOpen(false)}>Leistungen</a>
+                            <a href="#gutachten" className="text-lg font-bold text-slate-900" onClick={() => setMenuOpen(false)}>Gutachten</a>
+                            <a href="#team" className="text-lg font-bold text-slate-900" onClick={() => setMenuOpen(false)}>Team</a>
+                            <Link to="/kontakt" className="bg-primary text-white text-center py-4 rounded-2xl font-black tracking-widest" onClick={() => setMenuOpen(false)}>KONTAKT</Link>
+                        </div>
+                    )}
+                </header>
+            );
+        };
+
+        const Hero = () => {
+            return (
+                <section id="startseite" className="relative min-h-screen flex items-center pt-24 pb-12 overflow-hidden bg-slate-950">
+                    <div className="absolute inset-0 z-0">
+                        <img src={CONFIG.hero.image} alt="Workshop" className="w-full h-full object-cover opacity-40 scale-105" />
+                        <div className="absolute inset-0 bg-gradient-to-tr from-slate-950 via-slate-950/80 to-transparent"></div>
+                    </div>
+
+                    <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-10 w-full">
+                        <div className="max-w-4xl">
+                            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-md rounded-full border border-white/20 text-white text-xs font-bold uppercase tracking-[0.2em] mb-8 animate-fade-in">
+                                <span className="w-2 h-2 bg-primary rounded-full animate-pulse"></span>
+                                {CONFIG.company.tagline}
+                            </div>
+                            <h1 className="text-6xl lg:text-[8rem] font-black leading-[0.9] text-white tracking-tighter mb-8 drop-shadow-2xl">
+                                {CONFIG.hero.title} <br />
+                                <span className="hero-gradient-text italic italic uppercase">{CONFIG.hero.highlight}</span>
+                            </h1>
+                            <p className="text-xl lg:text-3xl text-slate-300 font-medium mb-12 max-w-2xl leading-relaxed">
+                                {CONFIG.hero.description}
+                            </p>
+                            <div className="flex flex-col sm:flex-row gap-6">
+                                <a href="#kontakt" className="bg-primary hover:bg-red-700 text-white px-12 h-18 rounded-full font-extrabold text-xl flex items-center justify-center shadow-2xl shadow-red-600/40 transition-all hover:-translate-y-1">
+                                    Termin vereinbaren
+                                </a>
+                                <a href="#leistungen" className="bg-white/10 hover:bg-white/20 backdrop-blur-xl text-white border border-white/20 px-12 h-18 rounded-full font-extrabold text-xl flex items-center justify-center transition-all">
+                                    Unsere Leistungen
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Dashboard Decor */}
+                    <div className="absolute bottom-12 right-12 z-20 hidden lg:block float">
+                        <div className="bg-white/10 backdrop-blur-2xl border border-white/20 p-8 rounded-[3rem] shadow-2xl flex flex-col items-center gap-4">
+                            <div className="flex text-yellow-400 gap-1">
+                                {[...Array(5)].map((_, i) => <span key={i} className="material-symbols-outlined fill text-2xl">star</span>)}
+                            </div>
+                            <div className="text-center">
+                                <p className="text-white font-black text-5xl">{CONFIG.hero.rating}</p>
+                                <p className="text-white/50 text-[10px] uppercase font-black tracking-[0.3em] mt-2">Google Bewertung</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+        const Services = () => (
+            <section id="leistungen" className="py-32 bg-white scroll-mt-20">
+                <div className="mx-auto max-w-7xl px-6 lg:px-10">
+                    <div className="flex flex-col lg:flex-row justify-between items-end gap-8 mb-20">
+                        <div className="max-w-2xl">
+                            <p className="text-primary font-black uppercase tracking-[0.3em] text-sm mb-4">Was wir tun</p>
+                            <h2 className="text-5xl lg:text-7xl font-black tracking-tighter text-slate-900 leading-tight">
+                                Vollservice für <br /> <span className="text-slate-400 italic">alle Fabrikate</span>
+                            </h2>
+                        </div>
+                        <p className="max-w-sm text-slate-500 font-medium text-lg leading-relaxed">
+                            Vom Ölwechsel bis zur komplexen Unfallinstandsetzung – wir kümmern uns mit Leidenschaft um Ihr Auto.
+                        </p>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        {CONFIG.services.map((s, i) => (
+                            <div key={i} className="service-card group bg-slate-50 rounded-[2.5rem] overflow-hidden border border-slate-100 p-4">
+                                <div className="h-64 rounded-[2rem] overflow-hidden mb-8">
+                                    <img src={s.image} alt={s.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" />
+                                </div>
+                                <div className="px-6 pb-6 mt-4">
+                                    <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center text-primary shadow-sm mb-6">
+                                        <span className="material-symbols-outlined text-2xl">{s.icon}</span>
+                                    </div>
+                                    <h3 className="text-2xl font-black text-slate-900 mb-4">{s.title}</h3>
+                                    <p className="text-slate-500 font-medium leading-relaxed">{s.desc}</p>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+        );
+
+        const Gutachten = () => (
+            <section id="gutachten" className="py-32 bg-slate-900 scroll-mt-20">
+                <div className="mx-auto max-w-7xl px-6 lg:px-10">
+                    <div className="grid lg:grid-cols-2 gap-20 items-center">
+                        <div>
+                            <p className="text-primary font-black uppercase tracking-[0.3em] text-sm mb-4">Fachwissen</p>
+                            <h2 className="text-5xl lg:text-7xl font-black text-white tracking-tighter mb-8 leading-tight">
+                                Unfall- & <br /> <span className="text-slate-500 italic">Wertgutachten</span>
+                            </h2>
+                            <div className="space-y-6 text-slate-300 text-lg font-medium leading-relaxed">
+                                <p>
+                                    H.-J. Corsten-Weseloh ist seit über 10 Jahren zertifizierter Gutachter des VfK (Verband freier Sachverständiger).
+                                </p>
+                                <p>
+                                    Wir bieten Ihnen professionelle Gutachten für Unfallschäden, Oldtimer-Bewertungen und Restwert-Ermittlungen. Als Partnerbüro von **Classic Analytics** sind wir Ihr Ansprechpartner für wertvolle Klassiker.
+                                </p>
+                                <ul className="space-y-4 text-white font-bold">
+                                    <li className="flex gap-4"><span className="material-symbols-outlined text-primary">check_circle</span> Unfallschadengutachten</li>
+                                    <li className="flex gap-4"><span className="material-symbols-outlined text-primary">check_circle</span> Oldtimerbewertungen</li>
+                                    <li className="flex gap-4"><span className="material-symbols-outlined text-primary">check_circle</span> weitreichendes Netzwerk an Fachanwälten</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div className="bg-white/5 backdrop-blur-2xl rounded-[3rem] p-12 border border-white/10 flex items-center justify-center">
+                            <div className="text-center group">
+                                <div className="w-32 h-32 bg-primary/20 rounded-full flex items-center justify-center text-primary mb-8 mx-auto group-hover:scale-110 transition-transform">
+                                    <span className="material-symbols-outlined text-6xl">verified_user</span>
+                                </div>
+                                <p className="text-white text-3xl font-black mb-2">VfK Zertifiziert</p>
+                                <p className="text-slate-400 font-bold uppercase tracking-widest">Sachverstand seit 2012</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        );
+
+        const About = () => (
+            <section id="team" className="py-32 bg-slate-50 overflow-hidden scroll-mt-20">
+                <div className="mx-auto max-w-7xl px-6 lg:px-10">
+                    <div className="grid lg:grid-cols-2 gap-24 items-center">
+                        <div className="relative">
+                            <div className="relative z-10 rounded-[3rem] overflow-hidden shadow-2xl scale-95 group-hover:scale-100 transition-transform duration-700">
+                                <img src={CONFIG.hero.image2} alt="About" className="w-full aspect-[4/5] object-cover" />
+                            </div>
+                            <div className="absolute -bottom-10 -right-10 w-64 h-64 bg-primary/10 rounded-full blur-3xl z-0"></div>
+                            <div className="absolute -top-10 -left-10 w-64 h-64 bg-slate-900/5 rounded-full blur-3xl z-0"></div>
+                        </div>
+                        <div>
+                            <p className="text-primary font-black uppercase tracking-[0.3em] text-sm mb-4">Über uns</p>
+                            <h2 className="text-5xl lg:text-7xl font-black tracking-tighter text-slate-900 mb-8 leading-tight">
+                                Familientradition <br /> <span className="text-slate-400 italic">& Kompetenz</span>
+                            </h2>
+                            <p className="text-xl text-slate-600 font-medium leading-relaxed mb-12">
+                                Die Firma Autodienst Harburg wurde 2007 gegründet. Seit 2013 finden Sie uns an unserem zentralen Standort im Marmstorfer Weg. Wir vereinen die persönliche Atmosphäre eines kleinen Betriebs mit der Ausstattung und Kompetenz eines Großbetriebs.
+                            </p>
+
+                            <div className="space-y-8">
+                                {CONFIG.team.map((member, i) => (
+                                    <div key={i} className="flex items-center gap-6 group">
+                                        <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-sm border border-slate-100 group-hover:border-primary transition-colors">
+                                            <span className="material-symbols-outlined text-primary">person</span>
+                                        </div>
+                                        <div>
+                                            <p className="text-lg font-black text-slate-900 leading-none mb-1">{member.name}</p>
+                                            <p className="text-sm font-bold text-slate-400 uppercase tracking-widest">{member.role}</p>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        );
+
+        const Contact = () => {
+            return (
+                <section id="kontakt" className="py-32 bg-white scroll-mt-20">
+                    <div className="mx-auto max-w-7xl px-6 lg:px-10">
+                        <div className="bg-slate-950 rounded-[4rem] p-8 lg:p-24 overflow-hidden relative shadow-2xl">
+                            <div className="relative z-10 grid lg:grid-cols-2 gap-20">
+                                <div>
+                                    <h2 className="text-5xl lg:text-7xl font-black text-white tracking-tighter mb-8 leading-tight">
+                                        Lust auf <br /> <span className="text-primary italic">Top-Service?</span>
+                                    </h2>
+                                    <div className="space-y-12 mt-16 text-white">
+                                        <div className="flex gap-6">
+                                            <span className="material-symbols-outlined text-primary text-4xl">location_on</span>
+                                            <div>
+                                                <p className="text-xs font-black uppercase tracking-widest text-slate-400 mb-2">Standort</p>
+                                                <p className="text-2xl font-bold">{CONFIG.contact.address}</p>
+                                            </div>
+                                        </div>
+                                        <div className="flex gap-6">
+                                            <span className="material-symbols-outlined text-primary text-4xl">call</span>
+                                            <div>
+                                                <p className="text-xs font-black uppercase tracking-widest text-slate-400 mb-2">Rufen Sie uns an</p>
+                                                <p className="text-2xl font-bold">{CONFIG.contact.phone}</p>
+                                            </div>
+                                        </div>
+                                        <div className="flex gap-6">
+                                            <span className="material-symbols-outlined text-primary text-4xl">mail</span>
+                                            <div>
+                                                <p className="text-xs font-black uppercase tracking-widest text-slate-400 mb-2">E-Mail</p>
+                                                <p className="text-2xl font-bold">{CONFIG.contact.email}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-[3rem] p-8 lg:p-12">
+                                    <h3 className="text-3xl font-black text-white mb-8">Öffnungszeiten</h3>
+                                    <div className="space-y-6">
+                                        {CONFIG.contact.openingHours.map((h, i) => (
+                                            <div key={i} className="flex justify-between items-center pb-4 border-b border-white/5">
+                                                <span className="text-slate-400 font-bold uppercase tracking-widest text-sm">{h.day}</span>
+                                                <span className="text-white font-black text-lg">{h.time}</span>
+                                            </div>
+                                        ))}
+                                    </div>
+                                    <div className="mt-12 bg-primary/20 border border-primary/30 p-6 rounded-2xl">
+                                        <p className="text-white font-medium text-center leading-relaxed">
+                                            Bei dringenden Anliegen rufen Sie uns am besten direkt an!
+                                        </p>
+                                    </div>
+                                    <a href={`tel:${CONFIG.contact.phone}`} className="mt-8 block w-full bg-primary text-white text-center py-6 rounded-3xl font-black text-xl shadow-2xl shadow-red-600/20 hover:scale-[1.02] transition-all">
+                                        JETZT ANRUFEN
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            );
+        }
+
+        const Footer = () => (
+            <footer className="bg-slate-50 py-24 border-t border-slate-100">
+                <div className="mx-auto max-w-7xl px-6 lg:px-10">
+                    <div className="flex flex-col md:flex-row justify-between items-center gap-12 pb-12 border-b border-slate-200">
+                        <div className="flex items-center gap-2 group">
+                            <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-white font-black text-lg">H</div>
+                            <span className="text-xl font-black tracking-tighter uppercase italic text-slate-900">
+                                Autodienst <span className="text-primary">Harburg</span>
+                            </span>
+                        </div>
+                        <nav className="flex gap-8">
+                            <a href="#" className="text-xs font-black uppercase tracking-widest text-slate-500 hover:text-primary">Impressum</a>
+                            <a href="#" className="text-xs font-black uppercase tracking-widest text-slate-500 hover:text-primary">Datenschutz</a>
+                        </nav>
+                    </div>
+                    <div className="pt-12 text-center">
+                        <p className="text-slate-400 text-[10px] font-black uppercase tracking-[0.4em]">
+                            © 2026 Autodienst Harburg. Quality Automotive Service.
+                        </p>
+                    </div>
+                </div>
+            </footer>
+        );
+
+        const App = () => {
+            const { pathname } = useLocation();
+            useEffect(() => { window.scrollTo(0, 0); }, [pathname]);
+
+            return (
+                <div className="flex flex-col min-h-screen">
+                    <StyleInjections />
+                    <Navbar />
+                    <Routes>
+                        <Route path="/" element={
+                            <main>
+                                <Hero />
+                                <Services />
+                                <Gutachten />
+                                <About />
+                                <Contact />
+                            </main>
+                        } />
+                        <Route path="/kontakt" element={<Contact />} />
+                    </Routes>
+                    <Footer />
+
+                    {/* MOBILE CTA */}
+                    <div className="fixed bottom-6 left-6 right-6 z-[60] md:hidden">
+                        <a href={`tel:${CONFIG.contact.phone}`} className="flex items-center justify-between p-4 bg-primary text-white rounded-[2rem] shadow-2xl shadow-red-600/40">
+                            <div className="pl-4">
+                                <p className="text-white/60 text-[10px] uppercase font-black tracking-widest">Fragen?</p>
+                                <p className="font-black">Rufen Sie uns an</p>
+                            </div>
+                            <div className="w-12 h-12 bg-white/20 rounded-2xl flex items-center justify-center">
+                                <span className="material-symbols-outlined">call</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            );
+        };
+
+        const root = createRoot(document.getElementById('root'));
+        root.render(<HashRouter><App /></HashRouter>);
+    </script>
+</body>
+
+</html>
