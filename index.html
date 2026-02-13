@@ -286,9 +286,13 @@
 
                     <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-10 w-full">
                         <div className="max-w-4xl">
-                            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-md rounded-full border border-white/20 text-white text-xs font-bold uppercase tracking-[0.2em] mb-8 animate-fade-in">
-                                <span className="w-2 h-2 bg-primary rounded-full animate-pulse"></span>
-                                {CONFIG.company.tagline}
+                            <div className="flex flex-col gap-2 mb-12 animate-fade-in group/tagline">
+                                <div className="flex items-center gap-3">
+                                    <div className="h-[2px] w-12 bg-primary rounded-full"></div>
+                                    <span className="text-white text-sm font-bold uppercase tracking-[0.3em]">
+                                        {CONFIG.company.tagline}
+                                    </span>
+                                </div>
                             </div>
                             <h1 className="text-6xl lg:text-[8rem] font-black leading-[1.0] text-white tracking-tight mb-8 drop-shadow-2xl">
                                 {CONFIG.hero.title} <br />
