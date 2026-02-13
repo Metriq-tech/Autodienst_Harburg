@@ -71,7 +71,7 @@
         }
 
         .hero-gradient-text {
-            background: linear-gradient(135deg, #ffffff 0%, #ff8a8a 100%);
+            background: linear-gradient(135deg, #ffffff 0%, #8ab4ff 100%);
             background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -129,7 +129,7 @@
     </style>
 </head>
 
-<body class="selection:bg-red-100 selection:text-red-600">
+<body class="selection:bg-blue-100 selection:text-blue-600">
     <div id="root"></div>
 
     <script type="text/babel">
@@ -142,8 +142,8 @@
                 name: "Autodienst Harburg",
                 shortName: "Autodienst",
                 tagline: "Ihre KFZ Werkstatt im Herzen Harburgs",
-                logo: "Autodienst Harburg", // Text fallback
-                primaryColor: "#c21a22",
+                logo: "./Reale_Bilder/Logo.png",
+                primaryColor: "#003B95", // Deep Professional Blue from Logo
             },
             contact: {
                 phone: "040 696 47 046",
@@ -240,11 +240,12 @@
             return (
                 <header className={`fixed top-0 z-50 w-full transition-all duration-500 ${scrolled ? 'bg-white/80 backdrop-blur-xl shadow-lg py-4' : 'bg-transparent py-8'}`}>
                     <div className="mx-auto max-w-7xl px-6 lg:px-10 flex items-center justify-between">
-                        <Link to="/" className="flex items-center gap-2 group">
-                            <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center text-white font-black text-xl group-hover:rotate-12 transition-transform">H</div>
-                            <span className={`text-2xl font-black tracking-tighter uppercase italic ${scrolled ? 'text-slate-900' : 'text-white md:text-white text-slate-900'}`}>
-                                {CONFIG.company.name.split(' ')[0]} <span className="text-primary">{CONFIG.company.name.split(' ').slice(1).join(' ')}</span>
-                            </span>
+                        <Link to="/" className="flex items-center group">
+                            <img
+                                src={CONFIG.company.logo}
+                                alt={CONFIG.company.name}
+                                className={`h-12 md:h-16 w-auto rounded-xl transition-all duration-300 ${scrolled ? 'opacity-100' : 'opacity-90 hover:opacity-100'}`}
+                            />
                         </Link>
 
                         <nav className="hidden md:flex items-center gap-10">
@@ -252,7 +253,7 @@
                             <a href="#leistungen" className={`text-sm font-bold uppercase tracking-widest hover:text-primary transition-colors ${scrolled ? 'text-slate-600' : 'text-white/80'}`}>Leistungen</a>
                             <a href="#gutachten" className={`text-sm font-bold uppercase tracking-widest hover:text-primary transition-colors ${scrolled ? 'text-slate-600' : 'text-white/80'}`}>Gutachten</a>
                             <a href="#team" className={`text-sm font-bold uppercase tracking-widest hover:text-primary transition-colors ${scrolled ? 'text-slate-600' : 'text-white/80'}`}>Team</a>
-                            <Link to="/kontakt" className="bg-primary text-white text-xs font-black px-6 py-4 rounded-full shadow-lg shadow-red-500/30 hover:scale-105 active:scale-95 transition-all uppercase tracking-widest">
+                            <Link to="/kontakt" className="bg-primary text-white text-xs font-black px-6 py-4 rounded-full shadow-lg shadow-blue-500/30 hover:scale-105 active:scale-95 transition-all uppercase tracking-widest">
                                 Termin buchen
                             </Link>
                         </nav>
@@ -289,15 +290,15 @@
                                 <span className="w-2 h-2 bg-primary rounded-full animate-pulse"></span>
                                 {CONFIG.company.tagline}
                             </div>
-                            <h1 className="text-6xl lg:text-[8rem] font-black leading-[0.9] text-white tracking-tighter mb-8 drop-shadow-2xl">
+                            <h1 className="text-6xl lg:text-[8rem] font-black leading-[1.0] text-white tracking-tight mb-8 drop-shadow-2xl">
                                 {CONFIG.hero.title} <br />
-                                <span className="hero-gradient-text italic italic uppercase">{CONFIG.hero.highlight}</span>
+                                <span className="hero-gradient-text italic uppercase px-4 inline-block">{CONFIG.hero.highlight}</span>
                             </h1>
                             <p className="text-xl lg:text-3xl text-slate-300 font-medium mb-12 max-w-2xl leading-relaxed">
                                 {CONFIG.hero.description}
                             </p>
                             <div className="flex flex-col sm:flex-row gap-6">
-                                <a href="#kontakt" className="bg-primary hover:bg-red-700 text-white px-12 h-18 rounded-full font-extrabold text-xl flex items-center justify-center shadow-2xl shadow-red-600/40 transition-all hover:-translate-y-1">
+                                <a href="#kontakt" className="bg-primary hover:bg-blue-800 text-white px-12 h-18 rounded-full font-extrabold text-xl flex items-center justify-center shadow-2xl shadow-blue-600/40 transition-all hover:-translate-y-1">
                                     Termin vereinbaren
                                 </a>
                                 <a href="#leistungen" className="bg-white/10 hover:bg-white/20 backdrop-blur-xl text-white border border-white/20 px-12 h-18 rounded-full font-extrabold text-xl flex items-center justify-center transition-all">
@@ -483,7 +484,7 @@
                                             Bei dringenden Anliegen rufen Sie uns am besten direkt an!
                                         </p>
                                     </div>
-                                    <a href={`tel:${CONFIG.contact.phone}`} className="mt-8 block w-full bg-primary text-white text-center py-6 rounded-3xl font-black text-xl shadow-2xl shadow-red-600/20 hover:scale-[1.02] transition-all">
+                                    <a href={`tel:${CONFIG.contact.phone}`} className="mt-8 block w-full bg-primary text-white text-center py-6 rounded-3xl font-black text-xl shadow-2xl shadow-blue-600/20 hover:scale-[1.02] transition-all">
                                         JETZT ANRUFEN
                                     </a>
                                 </div>
@@ -498,11 +499,8 @@
             <footer className="bg-slate-50 py-24 border-t border-slate-100">
                 <div className="mx-auto max-w-7xl px-6 lg:px-10">
                     <div className="flex flex-col md:flex-row justify-between items-center gap-12 pb-12 border-b border-slate-200">
-                        <div className="flex items-center gap-2 group">
-                            <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-white font-black text-lg">H</div>
-                            <span className="text-xl font-black tracking-tighter uppercase italic text-slate-900">
-                                Autodienst <span className="text-primary">Harburg</span>
-                            </span>
+                        <div className="flex items-center group">
+                            <img src={CONFIG.company.logo} alt={CONFIG.company.name} className="h-10 w-auto rounded-lg opacity-80 hover:opacity-100 transition-opacity" />
                         </div>
                         <nav className="flex gap-8">
                             <a href="#" className="text-xs font-black uppercase tracking-widest text-slate-500 hover:text-primary">Impressum</a>
@@ -542,7 +540,7 @@
 
                     {/* MOBILE CTA */}
                     <div className="fixed bottom-6 left-6 right-6 z-[60] md:hidden">
-                        <a href={`tel:${CONFIG.contact.phone}`} className="flex items-center justify-between p-4 bg-primary text-white rounded-[2rem] shadow-2xl shadow-red-600/40">
+                        <a href={`tel:${CONFIG.contact.phone}`} className="flex items-center justify-between p-4 bg-primary text-white rounded-[2rem] shadow-2xl shadow-blue-600/40">
                             <div className="pl-4">
                                 <p className="text-white/60 text-[10px] uppercase font-black tracking-widest">Fragen?</p>
                                 <p className="font-black">Rufen Sie uns an</p>
