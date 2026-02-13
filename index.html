@@ -250,9 +250,9 @@
 
                         <nav className="hidden md:flex items-center gap-10">
                             <Link to="/" className={`text-sm font-bold uppercase tracking-widest hover:text-primary transition-colors ${scrolled ? 'text-slate-600' : 'text-white/80'}`}>Startseite</Link>
-                            <a href="#leistungen" className={`text-sm font-bold uppercase tracking-widest hover:text-primary transition-colors ${scrolled ? 'text-slate-600' : 'text-white/80'}`}>Leistungen</a>
-                            <a href="#gutachten" className={`text-sm font-bold uppercase tracking-widest hover:text-primary transition-colors ${scrolled ? 'text-slate-600' : 'text-white/80'}`}>Gutachten</a>
-                            <a href="#team" className={`text-sm font-bold uppercase tracking-widest hover:text-primary transition-colors ${scrolled ? 'text-slate-600' : 'text-white/80'}`}>Team</a>
+                            <a href="#/" onClick={(e) => { e.preventDefault(); document.getElementById('leistungen').scrollIntoView({ behavior: 'smooth' }); }} className={`text-sm font-bold uppercase tracking-widest hover:text-primary transition-colors ${scrolled ? 'text-slate-600' : 'text-white/80'}`}>Leistungen</a>
+                            <a href="#/" onClick={(e) => { e.preventDefault(); document.getElementById('gutachten').scrollIntoView({ behavior: 'smooth' }); }} className={`text-sm font-bold uppercase tracking-widest hover:text-primary transition-colors ${scrolled ? 'text-slate-600' : 'text-white/80'}`}>Gutachten</a>
+                            <a href="#/" onClick={(e) => { e.preventDefault(); document.getElementById('team').scrollIntoView({ behavior: 'smooth' }); }} className={`text-sm font-bold uppercase tracking-widest hover:text-primary transition-colors ${scrolled ? 'text-slate-600' : 'text-white/80'}`}>Team</a>
                             <Link to="/kontakt" className="bg-primary text-white text-xs font-black px-6 py-4 rounded-full shadow-lg shadow-blue-500/30 hover:scale-105 active:scale-95 transition-all uppercase tracking-widest">
                                 Termin buchen
                             </Link>
@@ -266,9 +266,9 @@
                     {menuOpen && (
                         <div className="absolute top-full left-0 w-full bg-white shadow-2xl p-8 flex flex-col gap-6 animate-fade-in border-t border-slate-100 md:hidden">
                             <Link to="/" className="text-lg font-bold text-slate-900" onClick={() => setMenuOpen(false)}>Startseite</Link>
-                            <a href="#leistungen" className="text-lg font-bold text-slate-900" onClick={() => setMenuOpen(false)}>Leistungen</a>
-                            <a href="#gutachten" className="text-lg font-bold text-slate-900" onClick={() => setMenuOpen(false)}>Gutachten</a>
-                            <a href="#team" className="text-lg font-bold text-slate-900" onClick={() => setMenuOpen(false)}>Team</a>
+                            <a href="#/" className="text-lg font-bold text-slate-900" onClick={(e) => { e.preventDefault(); setMenuOpen(false); setTimeout(() => document.getElementById('leistungen').scrollIntoView({ behavior: 'smooth' }), 100); }}>Leistungen</a>
+                            <a href="#/" className="text-lg font-bold text-slate-900" onClick={(e) => { e.preventDefault(); setMenuOpen(false); setTimeout(() => document.getElementById('gutachten').scrollIntoView({ behavior: 'smooth' }), 100); }}>Gutachten</a>
+                            <a href="#/" className="text-lg font-bold text-slate-900" onClick={(e) => { e.preventDefault(); setMenuOpen(false); setTimeout(() => document.getElementById('team').scrollIntoView({ behavior: 'smooth' }), 100); }}>Team</a>
                             <Link to="/kontakt" className="bg-primary text-white text-center py-4 rounded-2xl font-black tracking-widest" onClick={() => setMenuOpen(false)}>KONTAKT</Link>
                         </div>
                     )}
@@ -329,7 +329,7 @@
         };
 
         const Services = () => (
-            <section id="leistungen" className="py-32 bg-white scroll-mt-20">
+            <section id="leistungen" className="py-32 bg-white scroll-mt-32">
                 <div className="mx-auto max-w-7xl px-6 lg:px-10">
                     <div className="flex flex-col lg:flex-row justify-between items-end gap-8 mb-20">
                         <div className="max-w-2xl">
@@ -364,7 +364,7 @@
         );
 
         const Gutachten = () => (
-            <section id="gutachten" className="py-32 bg-slate-900 scroll-mt-20">
+            <section id="gutachten" className="py-32 bg-slate-900 scroll-mt-32">
                 <div className="mx-auto max-w-7xl px-6 lg:px-10">
                     <div className="grid lg:grid-cols-2 gap-20 items-center">
                         <div>
@@ -401,7 +401,7 @@
         );
 
         const About = () => (
-            <section id="team" className="py-32 bg-slate-50 overflow-hidden scroll-mt-20">
+            <section id="team" className="py-32 bg-slate-50 overflow-hidden scroll-mt-32">
                 <div className="mx-auto max-w-7xl px-6 lg:px-10">
                     <div className="grid lg:grid-cols-2 gap-24 items-center">
                         <div className="relative">
